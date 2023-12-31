@@ -34,7 +34,7 @@ final class SystemClock implements ClockInterface
     {
         $now = $this->now();
 
-        if ($now >= $date) {
+        if ($now->getTimestamp() >= $date->getTimestamp()) {
             return;
         }
 
