@@ -1,5 +1,5 @@
 {
-    "name": "roach-php/core",
+    "name": "recon/roach-core",
     "description": "A complete web scraping toolkit for PHP",
     "license": "MIT",
     "type": "library",
