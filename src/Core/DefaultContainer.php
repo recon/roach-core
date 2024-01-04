@@ -25,6 +25,7 @@ use RoachPHP\ItemPipeline\ItemPipeline;
 use RoachPHP\ItemPipeline\ItemPipelineInterface;
 use RoachPHP\Scheduling\ArrayRequestScheduler;
 use RoachPHP\Scheduling\RequestSchedulerInterface;
+use RoachPHP\Scheduling\SqliteRequestScheduler;
 use RoachPHP\Scheduling\Timing\ClockInterface;
 use RoachPHP\Scheduling\Timing\SystemClock;
 use RoachPHP\Shell\Resolver\NamespaceResolverInterface;
@@ -68,7 +69,7 @@ final class DefaultContainer implements ContainerInterface
         $this->container->addShared(
             RequestSchedulerInterface::class,
             /** @psalm-suppress MixedReturnStatement, MixedInferredReturnType */
-            fn (): RequestSchedulerInterface => $this->container->get(ArrayRequestScheduler::class),
+            fn (): RequestSchedulerInterface => $this->container->get(SqliteRequestScheduler::class),
         );
         $this->container->add(ClientInterface::class, Client::class);
         $this->container->add(
