@@ -16,6 +16,7 @@ namespace RoachPHP\Http;
 use Closure;
 use Generator;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
+use Opis\Closure\SerializableClosure;
 use Psr\Http\Message\RequestInterface;
 use RoachPHP\Spider\ParseResult;
 use RoachPHP\Support\Droppable;
@@ -28,9 +29,9 @@ final class Request implements DroppableInterface
     use Droppable;
 
     /**
-     * @var Closure(Response): Generator<ParseResult>
+     * @var SerializableClosure: Generator<ParseResult>
      */
-    private Closure $parseCallback;
+    private SerializableClosure $parseCallback;
 
     private RequestInterface $psrRequest;
 
@@ -49,7 +50,9 @@ final class Request implements DroppableInterface
     {
         $this->options = $options;
         $this->psrRequest = new GuzzleRequest($method, $uri);
-        $this->parseCallback = Closure::fromCallable($parseMethod);
+        $this->parseCallback = new SerializableClosure(function() use ($parseMethod){
+            return call_user_func_array($parseMethod, func_get_args());
+        });
     }
 
     public function getUri(): string
@@ -135,4 +138,5 @@ final class Request implements DroppableInterface
 
         return $clone;
     }
+
 }
