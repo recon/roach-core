@@ -31,7 +31,7 @@ final class Request implements DroppableInterface
     /**
      * @var SerializableClosure: Generator<ParseResult>
      */
-    private SerializableClosure $parseCallback;
+    private SerializableClosure|Closure $parseCallback;
 
     private RequestInterface $psrRequest;
 
@@ -121,7 +121,7 @@ final class Request implements DroppableInterface
         return $this->psrRequest;
     }
 
-    public function getParseCallback(): Closure
+    public function getParseCallback(): SerializableClosure
     {
         return $this->parseCallback;
     }
