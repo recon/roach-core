@@ -20,7 +20,7 @@ use RoachPHP\Scheduling\Storage\Database\DatabaseStorageInterface;
 use RoachPHP\Scheduling\Timing\ClockInterface;
 use PDO;
 
-final class SqliteRequestScheduler implements RequestSchedulerInterface
+final class DatabaseRequestScheduler implements RequestSchedulerInterface
 {
 
     private int $delay = 0;
