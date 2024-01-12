@@ -54,7 +54,7 @@ final class RequestDeduplicationMiddleware implements RequestMiddlewareInterface
         $uri = http_build_url($uri, $parts, $replaceFlags);
 
         if (\in_array($uri, $this->seenUris, true)) {
-            $this->logger->info(
+            $this->option('log') && $this->logger->info(
                 '[RequestDeduplicationMiddleware] Dropping duplicate request',
                 ['uri' => $request->getUri()],
             );
@@ -73,6 +73,7 @@ final class RequestDeduplicationMiddleware implements RequestMiddlewareInterface
             'ignore_url_fragments' => false,
             'ignore_trailing_slashes' => true,
             'ignore_query_string' => false,
+            'log' => false,
         ];
     }
 }
