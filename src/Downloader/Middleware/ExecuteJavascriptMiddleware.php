@@ -102,6 +102,10 @@ final class ExecuteJavascriptMiddleware implements ResponseMiddlewareInterface
             $browsershot->setDelay($delay);
         }
 
+        if (!empty($proxyServer = $this->option('proxyServer'))) {
+            $browsershot->setProxyServer($proxyServer);
+        }
+
         return $browsershot;
     }
 
@@ -116,6 +120,7 @@ final class ExecuteJavascriptMiddleware implements ResponseMiddlewareInterface
             'nodeBinary' => null,
             'npmBinary' => null,
             'userAgent' => null,
+            'proxyServer' => null,
             'delay' => 0,
         ];
     }
