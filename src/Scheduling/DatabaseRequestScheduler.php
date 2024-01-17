@@ -82,6 +82,12 @@ final class DatabaseRequestScheduler implements RequestSchedulerInterface
         return $this;
     }
 
+    public function purge(): self{
+        $this->databaseAdapter->purge();
+
+        return $this;
+    }
+
     private function updateNextBatchTime(): void
     {
         $this->nextBatchReadyAt = $this->clock->now()->add(new DateInterval("PT{$this->delay}S"));

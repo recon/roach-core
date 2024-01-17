@@ -13,4 +13,6 @@ interface DatabaseStorageInterface
     public function pullItems(int $batchSize): array;
 
     public function isEmpty(): bool;
+
+    public function purge(): void;
 }

@@ -73,6 +73,13 @@ final class ArrayRequestScheduler implements RequestSchedulerInterface
         return $this;
     }
 
+    public function purge(): self
+    {
+        $this->requests = [];
+
+        return $this;
+    }
+
     private function updateNextBatchTime(): void
     {
         $this->nextBatchReadyAt = $this->clock->now()->add(new DateInterval("PT{$this->delay}S"));

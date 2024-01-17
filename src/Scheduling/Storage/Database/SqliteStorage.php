@@ -10,7 +10,7 @@ class SqliteStorage implements DatabaseStorageInterface
     private const SQL_STATE_UNIQUE_INDEX_VIOLATION = 23000;
 
     protected string $dbNamespace;
-
+    protected bool $purgeOnConnectionInit = false;
     protected ?PDO $sqliteConnection = null;
 
     public function setNamespace($namespace)
@@ -63,6 +63,11 @@ class SqliteStorage implements DatabaseStorageInterface
         return empty($result['rowid']);
     }
 
+    public function purge(): void
+    {
+        $this->purgeOnConnectionInit = true;
+    }
+
     protected function getPdoConnection(): PDO
     {
         if (is_null($this->sqliteConnection)) {
@@ -88,5 +93,9 @@ class SqliteStorage implements DatabaseStorageInterface
 
                 CREATE UNIQUE INDEX IF NOT EXISTS IX_queue_path ON queue (path);
             ");
+        if ($this->purgeOnConnectionInit) {
+
+            $this->sqliteConnection->exec("DELETE FROM queue");
+        }
     }
 }

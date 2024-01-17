@@ -40,4 +40,6 @@ interface RequestSchedulerInterface
     public function setDelay(int $delay): self;
 
     public function setNamespace(string $namespace): self;
+
+    public function purge(): self;
 }
